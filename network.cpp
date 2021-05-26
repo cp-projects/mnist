@@ -34,15 +34,19 @@ class inputTable
     private:
 	    void openLabels(){
 
-                char label[4];
+                int label;
 	        
 	        fstream file;
                 file.open("rawMnistData/train-labels-idx1-ubyte");
+
+
+		for(int i = 0; i < 3; i++){
                 
-		file >> label;
+		    file >> label;
 
-		cout << (int)label << "THIS IS A LABEL" << '\n';
+		    cout << label << " THIS IS A LABEL " << '\n';
 
+		}	
 
 		/*int size = sizeof(int)*1;
 		int* memblock = new int[size];
