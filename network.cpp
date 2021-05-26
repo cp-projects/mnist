@@ -1,5 +1,9 @@
-
 #include <iostream>
+#include <fstream>
+
+
+using namespace std;
+
 
 class network
 {
@@ -8,17 +12,32 @@ class network
     public:
 
 
-	    void testMethod() {
+	    void testNetwork() {
 	    
-		    std::cout << "testing testing 123 " << '\n';
+		    cout << "testing network class " << '\n';
 	        
 	    }
 	
 
 	
 
+};
 
 
+
+
+
+//Might make this a function instead of a class later
+class inputTable
+{
+
+
+    public:
+	    void testTable(){
+	    
+		    cout << "testing input table class " << '\n';
+	    
+	    }
 
 
 
@@ -31,9 +50,16 @@ class network
 int main()
 {
 
-network myObj;
-myObj.testMethod();
 
+ofstream file;
+file.open("rawMnistData/train-labels-idx1-ubyte");
+file.close();
+
+network net;
+net.testNetwork();
+
+inputTable input;
+input.testTable();
 
 
 return 0;
