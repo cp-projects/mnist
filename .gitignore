@@ -32,5 +32,9 @@
 *.app
 
 
-#Folder
+#Folder containing data
 rawMnistData/
+
+
+#binary for network class
+network
