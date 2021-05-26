@@ -31,6 +31,39 @@ class network
 class inputTable
 {
 
+    private:
+	    void openLabels(){
+
+                char label[4];
+	        
+	        fstream file;
+                file.open("rawMnistData/train-labels-idx1-ubyte");
+                
+		file >> label;
+
+		cout << (int)label << "THIS IS A LABEL" << '\n';
+
+
+		/*int size = sizeof(int)*1;
+		int* memblock = new int[size];
+	       	
+		file.read(memblock, size);*/	
+		
+		file.close();
+
+	    }
+
+	    
+
+	    void openImages(){
+	    
+	        ofstream file;
+                file.open("rawMnistData/train-images-idx3-ubyte");
+                file.close();	    
+
+	    
+	    }
+
 
     public:
 	    void testTable(){
@@ -39,7 +72,12 @@ class inputTable
 	    
 	    }
 
-
+	    
+	    void getLabels(){
+	    
+		   openLabels(); 
+	    
+	    }
 
 };
 
@@ -51,16 +89,12 @@ int main()
 {
 
 
-ofstream file;
-file.open("rawMnistData/train-labels-idx1-ubyte");
-file.close();
-
 network net;
 net.testNetwork();
 
 inputTable input;
 input.testTable();
-
+input.getLabels();
 
 return 0;
 }
