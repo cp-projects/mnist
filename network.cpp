@@ -34,24 +34,18 @@ class inputTable
     private:
 	    void openLabels(){
 
-                int label;
+                char label;
 	        
-	        fstream file;
+	        ifstream file;
                 file.open("rawMnistData/train-labels-idx1-ubyte");
-
-
-		for(int i = 0; i < 3; i++){
                 
-		    file >> label;
+		  while (file >> label){
 
-		    cout << label << " THIS IS A LABEL " << '\n';
+		    cout << (int)label << endl;
 
 		}	
 
-		/*int size = sizeof(int)*1;
-		int* memblock = new int[size];
-	       	
-		file.read(memblock, size);*/	
+			
 		
 		file.close();
 
@@ -61,7 +55,7 @@ class inputTable
 
 	    void openImages(){
 	    
-	        ofstream file;
+	        ifstream file;
                 file.open("rawMnistData/train-images-idx3-ubyte");
                 file.close();	    
 
