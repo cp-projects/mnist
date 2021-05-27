@@ -32,32 +32,55 @@ class inputTable
 {
 
     private:
-	    void openLabels(){
 
+	    template <int batchSize>
+	    void openLabels(int iter, int batch[batchSize])
+            {
+               
+
+		int i = 0;    
                 char label;
 	        
-	        ifstream file;
-                file.open("rawMnistData/train-labels-idx1-ubyte");
+	        ifstream labels;
+                labels.open("rawMnistData/train-labels-idx1-ubyte");
                 
-		  while (file >> label){
+		  while (labels >> label){
 
+		    if((int)label > 9 || (int)label < 0) continue;
+
+		    
+		    if(i == iter) break;  
 		    cout << (int)label << endl;
+		    i++;
 
 		}	
 
 			
 		
-		file.close();
+		labels.close();
 
 	    }
 
 	    
 
 	    void openImages(){
-	    
-	        ifstream file;
-                file.open("rawMnistData/train-images-idx3-ubyte");
-                file.close();	    
+	   
+		char label;
+
+	        ifstream images;
+                images.open("rawMnistData/train-images-idx3-ubyte");
+               
+	       
+	
+		while (images >> label){
+
+                    cout << (int)label << endl;
+
+                }
+
+	
+	
+		images.close();	    
 
 	    
 	    }
@@ -66,14 +89,24 @@ class inputTable
     public:
 	    void testTable(){
 	    
-		    cout << "testing input table class " << '\n';
+                cout << "testing input table class " << '\n';
 	    
 	    }
 
 	    
 	    void getLabels(){
+	   
+
+		int batch[10];    
+
+	        openLabels(10, batch); 
 	    
-		   openLabels(); 
+	    }
+
+	    
+	    void getImages(){
+	    
+	        openImages();
 	    
 	    }
 
@@ -92,7 +125,9 @@ net.testNetwork();
 
 inputTable input;
 input.testTable();
+
 input.getLabels();
+
 
 return 0;
 }
