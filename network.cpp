@@ -38,9 +38,6 @@ class inputTable
 	        
 	        ifstream file;
                 file.open("rawMnistData/train-labels-idx1-ubyte");
-
-
-		//for(int i = 0; i < 3; i++){
                 
 		  while (file >> label){
 
@@ -48,10 +45,7 @@ class inputTable
 
 		}	
 
-		//int size = sizeof(int)*1;
-		//char* memblock = new char[size];
-	       	
-		//file.read(memblock, size);	
+			
 		
 		file.close();
 
@@ -61,7 +55,7 @@ class inputTable
 
 	    void openImages(){
 	    
-	        ofstream file;
+	        ifstream file;
                 file.open("rawMnistData/train-images-idx3-ubyte");
                 file.close();	    
 
