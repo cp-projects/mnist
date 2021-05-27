@@ -5,6 +5,7 @@
 using namespace std;
 
 
+//class for defining structure of the network and propagation
 class network
 {
 
@@ -27,14 +28,14 @@ class network
 
 
 
-//Might make this a function instead of a class later
+//class for handling and preparing data batches
 class inputTable
 {
 
     private:
 
-	    template <int batchSize>
-	    void openLabels(int iter, int batch[batchSize])
+	    
+	    void openLabels(int iter, int* batch)
             {
                
 
