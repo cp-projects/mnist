@@ -1,8 +1,23 @@
 #include <iostream>
 #include <fstream>
-
+#include <exception>
 
 using namespace std;
+
+//struct defining custom exceptions
+struct failToOpen : public exception
+{
+
+   const char* what() const throw(){
+   
+       return "The File Could not be opened";
+   }
+
+};
+
+
+
+
 
 
 //class for defining structure of the network and propagation
@@ -45,7 +60,7 @@ class inputFeed
 	    n iterations (batch size) and an array
 	    of size n to hold the batch
 	    */
-	    void openLabels(int iter, int* batch, int batchNumber)
+	    int openLabels(int iter, int* batch, int lastBatch)
             {
                
 
@@ -55,27 +70,42 @@ class inputFeed
 		//initializes container to read each label
 		char label;
 
+		
+
+		//adjust to specify which batch we are using
+		i = lastBatch;
+		iter += lastBatch;
 
 
 
 	        
 		//opens labels file
 	        ifstream labels;
-                labels.open("rawMnistData/train-labels-idx1-ubyte");
+		labels.open("rawMnistData/train-labels-idx1-ubyte", ios_base::in);
+
+
+		//check if files is open
+		if(!labels.is_open()){
+		
+		    //file did not open
+		    throw failToOpen();			    	
+		}
                 
+
+
 		  //iterates through labels file label-wise
 		  while (labels >> label){
 			  
 			  
                     //handles cases of corrupted or misinterpreted label data
 		    //(need to track index of currupted labels to remove corresponding images at some point)
-		    if((int)label > 9 || (int)label < 0) continue;
+		    if(label > 9 || label < 0) continue;
 
 		    //breaks when batch size is reached
 		    if(i == iter) break;
 		    
 		    //adds labels batch array
-		    batch[i] = (int)label;
+		    batch[i] = label;
 		    i++;
 
 		}	
@@ -91,6 +121,7 @@ class inputFeed
 
 		}
 
+		return iter;
 	    }
 
 
@@ -112,7 +143,15 @@ class inputFeed
 
 	        ifstream images;
                 images.open("rawMnistData/train-images-idx3-ubyte");
-               
+
+
+                //check if files is open
+                if(!images.is_open()){
+
+                    //file did not open
+                    throw failToOpen();
+                }
+
 	       
 	
 		while (images >> label){
@@ -152,12 +191,26 @@ class inputFeed
 	    }
 
 	    
-	    void getLabels(int batchSize){     
+	    void getLabels(int batchSize, int numBatches){
 
-		int batch[batchSize];    
+		int oldBatchLocation = 0;
+		int temp;
+		for(int i = oldBatchLocation; i < numBatches*batchSize; i += batchSize)
+		{
 
-	        openLabels(batchSize, batch, 29); 
+
+		int batch[batchSize];   
+
+	        //cout << i << ' ';	
+
+	        temp = openLabels(batchSize, batch, oldBatchLocation);
+	
+
+		//oldBatchLocation += temp;
 	    
+		}
+
+		//oldBatchLocation = temp;
 	    }
 
 	    
@@ -187,7 +240,7 @@ net.testNetwork();
 inputFeed input;
 input.testIOfeed();
 
-input.getLabels(30);
+input.getLabels(30, 20);
 
 
 return 0;
