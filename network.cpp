@@ -73,8 +73,11 @@ class inputFeed
 		
 
 		//adjust to specify which batch we are using
-		i = lastBatch;
+		//i = lastBatch;
+		//cout << '\n' << '\n';
+		//cout << " i = " <<  lastBatch << '\n';
 		iter += lastBatch;
+		//cout << " iter = " <<  iter << '\n';
 
 
 
@@ -103,6 +106,8 @@ class inputFeed
 
 		    //breaks when batch size is reached
 		    if(i == iter) break;
+
+		    //cout << " Lable  " << (int)label << '\n';
 		    
 		    //adds labels batch array
 		    batch[i] = label;
@@ -114,13 +119,17 @@ class inputFeed
 		//close files
 		labels.close();
 
+		//print batch
+		cout << '\n' <<  "Batch " << iter << '\n';
+
 		//prints batch array
-		for(int i = 0; i < iter; i++){
+		for(int i = lastBatch; i < iter; i++){
 		
 		    cout << batch[i] << ' ';
 
 		}
 
+		//cout << iter << '\n';
 		return iter;
 	    }
 
@@ -195,7 +204,7 @@ class inputFeed
 
 		int oldBatchLocation = 0;
 		int temp;
-		for(int i = oldBatchLocation; i < numBatches*batchSize; i += batchSize)
+		for(int i = 0; i < numBatches; i++)
 		{
 
 
@@ -205,8 +214,9 @@ class inputFeed
 
 	        temp = openLabels(batchSize, batch, oldBatchLocation);
 	
-
-		//oldBatchLocation += temp;
+		//cout << "old Batch Location  " << oldBatchLocation << '\n';
+		oldBatchLocation = temp;
+		//cout << "old Batch Location  " << oldBatchLocation << '\n';
 	    
 		}
 
@@ -240,7 +250,7 @@ net.testNetwork();
 inputFeed input;
 input.testIOfeed();
 
-input.getLabels(30, 20);
+input.getLabels(5, 50);
 
 
 return 0;
