@@ -60,6 +60,8 @@ class inputFeed
 	    n iterations (batch size) and an array
 	    of size n to hold the batch
 	    */
+
+	    //template<int R, int C>
 	    int openLabels(int iter, char* batch, int lastBatch)
             {
                
@@ -108,13 +110,15 @@ class inputFeed
 		    if(i == iter) break;
 
 		    if(i > lastBatch)
-		    {cout << (int)label << '\n';
+		    {//cout << (int)label << ' ';
 		    
 		    //adds labels batch array
-		   // batch[i] = label;
+		    batch[i] = label;
+
+		  // cout << (int)label << ' ';
 		    }
 
-
+		    
 		    i++;
 
 		    //cout << i << ' ';
@@ -126,16 +130,18 @@ class inputFeed
 		labels.close();
 
 		//print batch
-		cout << '\n' <<  "Batch " << iter << '\n';
+		//cout << '\n' <<  "Batch " << iter << '\n';
 
 		//prints batch array
-		for(int i = lastBatch; i < iter; i++){
+		for(int j = lastBatch+1; j < iter; j++){
 		
-		  //  cout << batch[i] << ' ';
+		   cout << (int)batch[j] << ' ';
 
 		}
 
 		//cout << iter << '\n';
+		
+		cout << '\n';
 		return iter;
 	    }
 
@@ -214,11 +220,17 @@ class inputFeed
 		{
 
 
-		char batch[batchSize];   
+		char batches[numBatches][batchSize];
+	        char batch[batchSize];	
 
 	        //cout << i << ' ';	
 
-	        temp = openLabels(batchSize, batch, i);
+	        temp = openLabels(batchSize, batch , i);
+
+		for(int j = 0; j < batchSize; j++){
+		
+		    //cout << batch[j] << ' ';
+		}
 	
 		//cout << "old Batch Location  " << oldBatchLocation << '\n';
 		//oldBatchLocation = temp;
