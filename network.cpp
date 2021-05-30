@@ -60,6 +60,8 @@ class inputFeed
 	    n iterations (batch size) and an array
 	    of size n to hold the batch
 	    */
+
+	    //template<int R, int C>
 	    int openLabels(int iter, char* batch, int lastBatch)
             {
                
@@ -214,11 +216,12 @@ class inputFeed
 		{
 
 
-		char batch[batchSize];   
+		char batches[numBatches][batchSize];
+	        char batch[batchSize];	
 
 	        //cout << i << ' ';	
 
-	        temp = openLabels(batchSize, batch, i);
+	        temp = openLabels(batchSize, batch , i);
 	
 		//cout << "old Batch Location  " << oldBatchLocation << '\n';
 		//oldBatchLocation = temp;
