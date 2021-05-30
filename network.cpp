@@ -60,7 +60,7 @@ class inputFeed
 	    n iterations (batch size) and an array
 	    of size n to hold the batch
 	    */
-	    int openLabels(int iter, int* batch, int lastBatch)
+	    int openLabels(int iter, char* batch, int lastBatch)
             {
                
 
@@ -111,7 +111,7 @@ class inputFeed
 		    {cout << (int)label << '\n';
 		    
 		    //adds labels batch array
-		    //batch[i] = label;
+		   // batch[i] = label;
 		    }
 
 
@@ -214,7 +214,7 @@ class inputFeed
 		{
 
 
-		int batch[batchSize];   
+		char batch[batchSize];   
 
 	        //cout << i << ' ';	
 
@@ -257,6 +257,7 @@ inputFeed input;
 input.testIOfeed();
 
 input.getLabels(10, 50);
+//input.getImages();
 
 
 return 0;
