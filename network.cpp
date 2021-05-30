@@ -62,7 +62,7 @@ class inputFeed
 	    */
 
 	    //template<int R, int C>
-	    int openLabels(int iter, int* batch, int lastBatch)
+	    int openLabels(int iter, char* batch, int lastBatch)
             {
                
 
@@ -110,10 +110,12 @@ class inputFeed
 		    if(i == iter) break;
 
 		    if(i > lastBatch)
-		    {cout << (int)label << ' ';
+		    {//cout << (int)label << ' ';
 		    
 		    //adds labels batch array
-		   // batch[i] = label;
+		    batch[i] = label;
+
+		  // cout << (int)label << ' ';
 		    }
 
 		    
@@ -131,9 +133,9 @@ class inputFeed
 		//cout << '\n' <<  "Batch " << iter << '\n';
 
 		//prints batch array
-		for(int i = lastBatch; i < iter; i++){
+		for(int j = lastBatch+1; j < iter; j++){
 		
-		  //  cout << batch[i] << ' ';
+		   cout << (int)batch[j] << ' ';
 
 		}
 
@@ -219,7 +221,7 @@ class inputFeed
 
 
 		char batches[numBatches][batchSize];
-	        int batch[batchSize];	
+	        char batch[batchSize];	
 
 	        //cout << i << ' ';	
 
