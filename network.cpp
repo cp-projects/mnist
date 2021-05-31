@@ -16,6 +16,16 @@ struct failToOpen : public exception
 };
 
 
+//struct for holding templates for data
+template<int R, int C>
+struct labelTable
+{
+
+    double (&labels)[R][C];
+
+};
+
+
 
 
 
@@ -72,8 +82,7 @@ class inputFeed
 		//initializes container to read each label
 		char label;
 
-		
-
+			
 		//adjust to specify which batch we are using
 		//i = lastBatch;
 		//cout << '\n' << '\n';
@@ -81,6 +90,9 @@ class inputFeed
 		iter += lastBatch;
 		//cout << " iter = " <<  iter << '\n';
 
+		
+
+		//labelTable labels[iter][batch];
 
 
 	        
@@ -93,7 +105,7 @@ class inputFeed
 		if(!labels.is_open()){
 		
 		    //file did not open
-		    throw failToOpen();			    	
+		    throw failToOpen();		    
 		}
                 
 
@@ -132,16 +144,18 @@ class inputFeed
 		//print batch
 		//cout << '\n' <<  "Batch " << iter << '\n';
 
+		
 		//prints batch array
 		for(int j = lastBatch+1; j < iter; j++){
 		
-		   cout << (int)batch[j] << ' ';
+		   //cout << (int)batch[j] << ' ';
 
 		}
+		
 
 		//cout << iter << '\n';
 		
-		cout << '\n';
+		//cout << '\n';
 		return iter;
 	    }
 
@@ -190,14 +204,28 @@ class inputFeed
 
 
 	    /*
-	     * Method for constructing syboltable
+	     * Method for constructing matrix
 	     *
 	     *
 	     *
 	     * */
-	    void constructTable()
+
+	    template<int R, int C>
+	    void constructTable(char (&matrix)[R][C], char (&row)[C])
 	    {
 	    
+                for(int i = 0; i < R; i++)
+		{
+		    for(int j = 0; j < C; j++)
+		    {
+		        matrix[i][j] =  row[j];
+	
+		    
+		   
+		    }
+		
+		
+		}
 	    
 	    
 	    
@@ -220,17 +248,26 @@ class inputFeed
 		{
 
 
-		char batches[numBatches][batchSize];
+		char batches [numBatches][batchSize];
 	        char batch[batchSize];	
 
-	        //cout << i << ' ';	
+	       	
 
 	        temp = openLabels(batchSize, batch , i);
 
-		for(int j = 0; j < batchSize; j++){
+
+		for(int j = 1; j < batchSize; j++){
 		
-		    //cout << batch[j] << ' ';
+		    cout << (int)batch[j] << ' ';
+		    //batches[i][j] = (int)batch[j];
+
 		}
+		
+
+		//cout << (int)batch[i] << ' ';
+
+
+		cout << '\n';
 	
 		//cout << "old Batch Location  " << oldBatchLocation << '\n';
 		//oldBatchLocation = temp;
