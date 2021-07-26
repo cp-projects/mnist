@@ -32,10 +32,10 @@
 *.app
 
 
-#Folder containing data
+# My Folders
 rawMnistData/
+notes/
 
-
-#binary for network class
+# My Binaries
 network
 prepData

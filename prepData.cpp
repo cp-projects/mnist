@@ -4,6 +4,18 @@
 
 using namespace std;
 
+
+
+
+/*
+ * Defining Custom Errors to Control for
+ *
+ * Problems Opening and Closing Files
+ *
+ * */
+
+
+
 //struct defining custom exceptions
 struct failToOpen : public exception
 {
@@ -31,13 +43,16 @@ struct failToClose : public exception
 
 
 
+/*
+ * End of Custom Errors
+ *
+ * */
 
 
 
 
 
-//main
-int main(){
+int getLabel(int labelIndex){
 
 
 
@@ -75,6 +90,49 @@ int main(){
 
 
 
+	      /*
+	       *
+	       *  Reading the Labels File
+	       *
+	       *
+	       *
+	       * */
+
+
+	      char label; //char with later int conversion necessary due to some earlier dependency regarding the file (maybe the way it was open) 
+
+
+              labels.seekg(labelIndex);
+
+   
+              labels >> label;             
+ 
+
+   
+
+             
+	     /*
+	      *
+	      * Print ALl Label Data
+	      *
+	      * */
+   
+
+	   /*char iterator;
+	     while(labels >> iterator){
+	      
+	          
+	         std::cout << (int)iterator << ' ';
+	              
+	      } */
+
+
+
+	      
+	    
+
+
+
 
               /*
                *
@@ -105,7 +163,32 @@ int main(){
 	      }
 
 
+
+return (int)label;
+
 }
+
+
+
+
+
+int main(){
+
+
+	std::cout << getLabel(8) << '\n' << '\n';
+
+	std::cout << getLabel(9) << '\n' << '\n';
+
+	std::cout << getLabel(10) << '\n' << '\n';
+
+        std::cout << getLabel(11) << '\n' << '\n';
+
+	std::cout << getLabel(12) << '\n' << '\n';
+
+
+}
+
+
 
 
 
