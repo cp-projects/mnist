@@ -4,6 +4,18 @@
 
 using namespace std;
 
+
+
+
+/*
+ * Defining Custom Errors to Control for
+ *
+ * Problems Opening and Closing Files
+ *
+ * */
+
+
+
 //struct defining custom exceptions
 struct failToOpen : public exception
 {
@@ -31,12 +43,15 @@ struct failToClose : public exception
 
 
 
+/*
+ * End of Custom Errors
+ *
+ * */
 
 
 
 
 
-//main
 int main(){
 
 
@@ -72,6 +87,19 @@ int main(){
 	      }
 
 
+
+
+
+	      //testing reading
+	      
+	      char label;
+
+              while(labels >> label){
+	      
+		      std::cout << std::hex << (int)label << ' ';
+	      
+	      
+	      } 
 
 
 
