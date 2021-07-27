@@ -43,6 +43,34 @@ struct failToClose : public exception
 
 
 
+//struct defining custom exceptions
+struct alreadyOpened : public exception
+{
+
+   const char* what() const throw(){
+
+       return "The File is Already Opened!!!!!!";
+   }
+
+};
+
+
+
+
+//struct defining custom exceptions
+struct alreadyClosed : public exception
+{
+
+   const char* what() const throw(){
+
+       return "The File is Not Open!!!!!!";
+   }
+
+};
+
+
+
+
 /*
  * End of Custom Errors
  *
@@ -50,53 +78,195 @@ struct failToClose : public exception
 
 
 
+/*
+ *
+ * Class for Processing Labels Data
+ *
+ *
+ *
+ *
+ * */
 
 
-int getLabel(int labelIndex){
+
+
+class Labels{
+
+
+
+    public:
+
+
+              // Declaration of Reference to Labels
+	      ifstream labels;
+
+
+	      /*
+	       *
+	       * Method to Open File
+	       *
+	       *
+	       *
+	       * */
+
+              void open(){
+
+
+		  //Check to see if file needs to be closed
+                  if(labels.is_open()){
+
+                      throw alreadyOpened();
+                  }
+
+
+                  //opens labels file
+                  labels.open("rawMnistData/train-labels-idx1-ubyte", ios_base::in);
+
+
+                  //check if file opened
+                  if(!labels.is_open()){
+
+                      //file did not open
+                      throw failToOpen();  
+	          }
+
+              
+	          //confirm that file opened
+	          else{
+
+	              std::cout << "FILE OPENED" << '\n';
+	          }
+
+             }
+
 
 
 
 	      /*
 	       *
-	       *  OPENING THE
+	       * Method to Close File
 	       *
-	       *  LABELS FILE
 	       *
 	       *
 	       * */
 
 
-
-              //opens labels file
-              ifstream labels;
-              labels.open("rawMnistData/train-labels-idx1-ubyte", ios_base::in);
+              void close(){
 
 
-              //check if file opened
-              if(!labels.is_open()){
+		  //Check to see if file needs to be closed    
+		  if(!labels.is_open()){
+		  
+	              throw alreadyClosed();
+                  }
 
-                  //file did not open
-                  throw failToOpen();  
-	      }
+	      
+	          //closes labels file
+                  labels.close();
 
-              
-	      //confirm that file opened
-	      else{
+                  //check if file closed
+                  if(labels.is_open()){
+                  
+                      //file did not close
+                      throw failToClose();
 
-	          std::cout << "FILE OPENED" << '\n';
-	      }
-
-
-
+                  }
 
 
+                  //confirm that file closed
+                   else{
+                  
+                      std::cout << "FILE CLOSED" << '\n';
+                   }
+
+              }
+
+
+           
 	      /*
+	       *
+	       *
+	       * Method for Printing Labels Data
+	       *
+	       *
+	       * */
+
+               void printLabels(){
+	       
+	           
+                      //Check to make sure file is opened    
+                      if(!labels.is_open()){
+
+                          throw alreadyClosed();
+                      }
+
+
+
+		      //Strip the non-Label Data
+		      //labels.seekg(8);
+
+
+		      //print
+	              char iterator;
+                      while(labels >> iterator){
+                   
+	              std::cout << (int)iterator << ' ';       
+                   
+		      }
+	       
+	       }
+
+
+
+	       /*
+		* 
+		* 
+		* Function Which Returns  
+		*
+		* One Label From Any Index
+		*
+		* of the Labels Data
+		*
+		*
+		*
+		* */
+
+                int getLabel(int labelIndex){
+
+                    //Check to make sure file is opened    
+                    if(!labels.is_open()){
+
+                        throw alreadyClosed();
+                     }
+
+
+		    char label; 
+                    labels.seekg(labelIndex);
+		    
+		    labels >> label;             
+ 
+
+                  return (int)label;
+		
+		}
+
+
+
+
+};
+
+
+
+/*
+
+
+	      *
 	       *
 	       *  Reading the Labels File
 	       *
+	       *  int getLabel(int labelIndex)
 	       *
-	       *
-	       * */
+	       * *
 
 
 	      char label; //char with later int conversion necessary due to some earlier dependency regarding the file (maybe the way it was open) 
@@ -108,84 +278,48 @@ int getLabel(int labelIndex){
               labels >> label;             
  
 
-   
-
-             
-	     /*
-	      *
-	      * Print ALl Label Data
-	      *
-	      * */
-   
-
-	   /*char iterator;
-	     while(labels >> iterator){
-	      
-	          
-	         std::cout << (int)iterator << ' ';
-	              
-	      } */
-
-
-
-	      
-	    
+              return (int)label;
 
 
 
 
-              /*
-               *
-               *  CLOSING THE
-               *
-               *  LABELS FILE
-               *
-               *
-               * */
-
-  
-	      //closes labels file
-	      labels.close();
-
-	      //check if file closed
-	      if(labels.is_open()){
-	          
-		  //file did not close
-	          throw failToClose();
-
-	      }
-
-
-              //confirm that file closed
-	      else{
-		  
-		  std::cout << "FILE CLOSED" << '\n';
-	      }
-
-
-
-return (int)label;
-
-}
-
-
+*/
 
 
 
 int main(){
 
 
-	std::cout << getLabel(8) << '\n' << '\n';
+	Labels myLabels;
 
-	std::cout << getLabel(9) << '\n' << '\n';
-
-	std::cout << getLabel(10) << '\n' << '\n';
-
-        std::cout << getLabel(11) << '\n' << '\n';
-
-	std::cout << getLabel(12) << '\n' << '\n';
+        myLabels.open();
 
 
+	for(int i = 100; i < 192; i++){
+
+	    //std::cout << myLabels.getLabel(i) << ' ';
+
+	}
+
+
+        //std::cout << '\n';
+
+
+
+	
+	
+
+        myLabels.printLabels();
+
+
+        
+
+	myLabels.close();
+
+        
+	
+
+         
 }
 
 
