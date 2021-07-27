@@ -203,7 +203,7 @@ class Labels{
 
 
 		      //Strip the non-Label Data
-		      //labels.seekg(8);
+		      labels.seekg(8);
 
 
 		      //print
@@ -257,34 +257,6 @@ class Labels{
 
 
 
-/*
-
-
-	      *
-	       *
-	       *  Reading the Labels File
-	       *
-	       *  int getLabel(int labelIndex)
-	       *
-	       * *
-
-
-	      char label; //char with later int conversion necessary due to some earlier dependency regarding the file (maybe the way it was open) 
-
-
-              labels.seekg(labelIndex);
-
-   
-              labels >> label;             
- 
-
-              return (int)label;
-
-
-
-
-*/
-
 
 
 int main(){
@@ -295,21 +267,21 @@ int main(){
         myLabels.open();
 
 
-	for(int i = 100; i < 192; i++){
+	for(int i = 8; i < 192; i++){
 
-	    //std::cout << myLabels.getLabel(i) << ' ';
+	    std::cout << myLabels.getLabel(i) << ' ';
 
 	}
 
 
-        //std::cout << '\n';
+       
 
 
 
 	
 	
 
-        myLabels.printLabels();
+        //myLabels.printLabels();
 
 
         
