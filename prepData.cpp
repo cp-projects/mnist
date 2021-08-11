@@ -16,7 +16,7 @@ using namespace std;
 
 
 
-//struct defining custom exceptions
+//struct defining fail to open exception
 struct failToOpen : public exception
 {
 
@@ -30,7 +30,7 @@ struct failToOpen : public exception
 
 
 
-//struct defining custom exceptions
+//struct defining fail to close exception
 struct failToClose : public exception
 {
 
@@ -43,7 +43,7 @@ struct failToClose : public exception
 
 
 
-//struct defining custom exceptions
+//struct defining file is already opened exception
 struct alreadyOpened : public exception
 {
 
@@ -57,7 +57,7 @@ struct alreadyOpened : public exception
 
 
 
-//struct defining custom exceptions
+//struct defining file is already closed exception
 struct alreadyClosed : public exception
 {
 
@@ -202,7 +202,7 @@ class Labels{
 
 
 
-		      //Strip the non-Label Data
+		      //Strip the non-Label Data at beginning of labels input
 		      labels.seekg(8);
 
 
