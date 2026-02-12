@@ -47,15 +47,23 @@ class Labels{
 
 
                   //opens labels file
-                  labels.open("rawMnistData/train-labels-idx1-ubyte", ios_base::in);
+                  //labels.open("data/train-labels-idx1-ubyte", ios_base::in);
 
+		  labels.open("./data/train-labels-idx1-ubyte.gz", ios_base::in);
 
                   //check if file opened
                   if(!labels.is_open()){
 
                       //file did not open
-                      throw failToOpen();  
+
+	//begin automatic download process
+        std::cout << "MNIST data not found! Downloading..." << std::endl;
+        int ret = system("python3 ./download_mnist.py");
+        if (ret != 0) {
+            std::cerr << "Failed to download MNIST dataset." << std::endl;
+                    throw failToOpen();  
 	          }
+	         }
 
               
 	          //confirm that file opened
